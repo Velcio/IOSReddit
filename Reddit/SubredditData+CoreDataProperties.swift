@@ -14,10 +14,9 @@ import CoreData
 
 extension SubredditData {
 
-    @NSManaged var after: String?
-    @NSManaged var name: String?
     @NSManaged var title: String?
-    @NSManaged var id: NSNumber?
+    @NSManaged var name: String?
+    @NSManaged var after: String?
     @NSManaged var topics: NSSet?
 
 }
