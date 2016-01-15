@@ -73,11 +73,7 @@ class SubredditsViewController : UITableViewController, UISplitViewControllerDel
         let subredditFetch = NSFetchRequest(entityName: "Subreddit")
         
         do {
-            var subredditsData = try managedObjectContext.executeFetchRequest(subredditFetch) as! [SubredditData]
-            
-            subredditsData = subredditsData.sort({ (subreddit1, subreddit2) -> Bool in
-                return false
-            })
+            let subredditsData = try managedObjectContext.executeFetchRequest(subredditFetch) as! [SubredditData]
             
             for subredditData in subredditsData {
                 guard let title = subredditData.title else {
@@ -105,6 +101,10 @@ class SubredditsViewController : UITableViewController, UISplitViewControllerDel
         }
         
         self.tableView.reloadData()
+        
+        if subreddits.count == 0 {
+            refreshClicked()
+        }
     }
     
     func saveSubreddits() {

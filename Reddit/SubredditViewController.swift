@@ -120,6 +120,11 @@ class SubredditViewController : UITableViewController
                 return
             }
             
+            if subredditData.topics!.count == 0 {
+                refreshTopics()
+                return
+            }
+            
             var topics: [Topic] = []
             
             for topicData in subredditData.topics!.allObjects as! [TopicData] {
