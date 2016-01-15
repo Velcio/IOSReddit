@@ -3,6 +3,7 @@
     <entity name="Subreddit" representedClassName=".SubredditData" syncable="YES">
         <attribute name="after" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="topics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Topic" syncable="YES"/>
     </entity>
@@ -15,7 +16,7 @@
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Subreddit" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Subreddit" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="Topic" positionX="-54" positionY="-9" width="128" height="135"/>
     </elements>
 </model>

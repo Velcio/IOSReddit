@@ -73,7 +73,11 @@ class SubredditsViewController : UITableViewController, UISplitViewControllerDel
         let subredditFetch = NSFetchRequest(entityName: "Subreddit")
         
         do {
-            let subredditsData = try managedObjectContext.executeFetchRequest(subredditFetch) as! [SubredditData]
+            var subredditsData = try managedObjectContext.executeFetchRequest(subredditFetch) as! [SubredditData]
+            
+            subredditsData = subredditsData.sort({ (subreddit1, subreddit2) -> Bool in
+                return subreddit1.order!.integerValue < subreddit2.order!.integerValue
+            })
             
             for subredditData in subredditsData {
                 guard let title = subredditData.title else {
@@ -108,6 +112,7 @@ class SubredditsViewController : UITableViewController, UISplitViewControllerDel
     }
     
     func saveSubreddits() {
+        var order = 0
         let fetchSubredditRequest = NSFetchRequest(entityName: "Subreddit")
         let deleteSubredditRequest = NSBatchDeleteRequest(fetchRequest: fetchSubredditRequest)
         let fetchTopicRequest = NSFetchRequest(entityName: "Topic")
@@ -124,6 +129,8 @@ class SubredditsViewController : UITableViewController, UISplitViewControllerDel
                 subredditData.setValue(subreddit.name, forKey: "name")
                 subredditData.setValue(subreddit.name, forKey: "after")
                 subredditData.setValue(NSSet(array: subreddit.topics), forKey: "topics")
+                subredditData.setValue(order, forKey: "order")
+                order++
             }
             
             try managedObjectContext.save()
