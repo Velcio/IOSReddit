@@ -14,11 +14,12 @@ import CoreData
 
 extension TopicData {
 
-    @NSManaged var title: String?
     @NSManaged var author: String?
-    @NSManaged var created: NSDate?
     @NSManaged var content: String?
-    @NSManaged var url: String?
+    @NSManaged var created: NSDate?
     @NSManaged var thumbnail: String?
+    @NSManaged var title: String?
+    @NSManaged var url: String?
+    @NSManaged var order: NSNumber?
 
 }

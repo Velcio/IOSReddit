@@ -126,8 +126,12 @@ class SubredditViewController : UITableViewController
             }
             
             var topics: [Topic] = []
+            var topicsData =  subredditData.topics!.allObjects as! [TopicData]
+            topicsData = topicsData.sort({ (topic1, topic2) -> Bool in
+                return topic1.order!.integerValue < topic2.order!.integerValue
+            })
             
-            for topicData in subredditData.topics!.allObjects as! [TopicData] {
+            for topicData in topicsData{
                 guard let title = topicData.title else {
                     debugPrint("title doesn't exist")
                     return
@@ -168,6 +172,7 @@ class SubredditViewController : UITableViewController
     }
     
     func saveTopics() {
+        var order = self.tableView.numberOfRowsInSection(0)
         let filter = NSPredicate(format: "name == %@", subreddit.name)
         let fetchrequest = NSFetchRequest(entityName: "Subreddit")
         fetchrequest.predicate = filter
@@ -192,6 +197,8 @@ class SubredditViewController : UITableViewController
                 topicData.setValue(topic.thumbnail, forKey: "thumbnail")
                 topicData.setValue(topic.url, forKey: "url")
                 topicData.setValue(topic.created, forKey: "created")
+                topicData.setValue(order, forKey: "order")
+                order++
                 
                 topics.append(topicData)
             }
